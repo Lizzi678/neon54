@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рассчитать вывеску (Квиз) | NEON54</title>
+    <link rel="stylesheet" href="quiz-style.css">
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h2>Рассчитайте стоимость вашей вывески за 4 шага</h2>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+    </div>
+
+    <div class="quiz-step active" id="step-1">
+        <h3>1. Где будет использоваться вывеска?</h3>
+        <div class="options-grid">
+            <div class="option-card" onclick="selectOption(1, 'Внутри помещения')">Внутри помещения</div>
+            <div class="option-card" onclick="selectOption(1, 'На улице (влагозащищенная)')">На улице (влагозащищенная)</div>
+        </div>
+    </div>
+
+    <div class="quiz-step" id="step-2">
+        <h3>2. Какой тип шрифта/дизайна планируется?</h3>
+        <div class="options-grid">
+            <div class="option-card" onclick="selectOption(2, 'Только текст (простой шрифт)')">Только текст (простой шрифт)</div>
+            <div class="option-card" onclick="selectOption(2, 'Текст со сложным/рукописным шрифтом')">Сложный/Рукописный шрифт</div>
+            <div class="option-card" onclick="selectOption(2, 'Логотип / Рисунок с неоном')">Логотип / Рисунок</div>
+        </div>
+    </div>
+
+    <div class="quiz-step" id="step-3">
+        <h3>3. Какого размера будет вывеска?</h3>
+        <div class="options-grid">
+            <div class="option-card" onclick="selectOption(3, 'Маленькая (до 50 см)')">Маленькая (до 50 см)</div>
+            <div class="option-card" onclick="selectOption(3, 'Средняя (50 - 100 см)')">Средняя (50 - 100 см)</div>
+            <div class="option-card" onclick="selectOption(3, 'Большая (более 100 см)')">Большая (более 100 см)</div>
+        </div>
+    </div>
+
+    <div class="quiz-step" id="step-4">
+        <h3>4. Оставьте контакты для получения макета и точной стоимости</h3>
+        <form id="quiz-contact-form">
+            <input type="text" id="quiz-name" placeholder="Ваше имя" required class="quiz-input">
+            <input type="text" id="quiz-phone" placeholder="Номер телефона или Telegram" required class="quiz-input">
+            <button type="submit" class="quiz-submit-btn">Получить расчет стоимости</button>
+        </form>
+    </div>
+
+    <div class="quiz-footer">
+        <button id="prev-btn" onclick="prevStep()" disabled>Назад</button>
+    </div>
+</div>
+
+<script src="quiz-logic.js"></script>
+</body>
+</html>
