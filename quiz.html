@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказать расчёт | НЕОН 54</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-page-wrapper {
+            min-height: calc(100vh - 120px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 40px;
+        }
+        .quiz-container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(18, 18, 28, 0.75);
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .quiz-main-title {
+            font-family: 'Unbounded', sans-serif;
+            text-align: center;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .step-title {
+            font-size: 1.1rem;
+            color: #00f2ff;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .quiz-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 16px 20px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .quiz-btn:hover {
+            background: rgba(0, 242, 255, 0.15);
+            border-color: #00f2ff;
+            transform: translateX(5px);
+        }
+        .quiz-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 10px;
+        }
+        .quiz-field option {
+            background: #12121c;
+            color: #fff;
+        }
+        .quiz-field:focus {
+            border-color: #00f2ff;
+        }
+        .quiz-nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+        .quiz-back-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .quiz-back-btn:hover {
+            color: #fff;
+        }
+        .quiz-step {
+            display: none;
+        }
+        .quiz-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .btn-submit {
+            background: #00f2ff;
+            color: #000;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="site-wrapper">
+        <header>
+            <div class="container header-inner">
+                <div class="logo" onclick="location.href='index.html'">НЕОН<span>54</span></div>
+                <nav class="nav">
+                    <a href="index.html">Главная</a>
+                    <a href="portfolio.html">Портфолио</a>
+                    <a href="news.html">Новости</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="quiz-page-wrapper">
+            <div class="quiz-container">
+                <h1 class="quiz-main-title">РАСЧЁТ СТОИМОСТИ</h1>
+                
+                <form id="tg-quiz-form">
+                    <div class="quiz-step active" id="step-type">
+                        <h3 class="step-title">Что именно нужно изготовить?</h3>
+                        <div class="quiz-options">
+                            <button type="button" class="quiz-btn" onclick="next('type', 'Неоновая вывеска', 'step-location')">Неоновая вывеска</button>
+                            <button type="button" class="quiz-btn" onclick="next('type', 'Объемные буквы', 'step-location')">Объемные буквы</button>
+                            <button type="button" class="quiz-btn" onclick="next('type', 'Другое', 'step-other')">Другое / Свой вариант</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" id="step-location">
+                        <h3 class="step-title">Где будет висеть конструкция?</h3>
+                        <div class="quiz-options">
+                            <button type="button" class="quiz-btn" onclick="next('location', 'В помещении (интерьерная)', 'step-size')">Внутри помещения</button>
+                            <button type="button" class="quiz-btn" onclick="next('location', 'На улице (фасадная)', 'step-size')">На улице</button>
+                        </div>
+                        <div class="quiz-nav-row">
+                            <button type="button" class="quiz-back-btn" onclick="showStep('step-type')">← Назад</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" id="step-other">
+                        <h3 class="step-title">Опишите вашу задачу:</h3>
+                        <textarea id="quiz_other_desc" class="quiz-field" rows="4" placeholder="Напишите здесь, что вы хотите..."></textarea>
+                        <div class="quiz-nav-row">
+                            <button type="button" class="quiz-back-btn" onclick="showStep('step-type')">← Назад</button>
+                            <button type="button" class="btn-submit" onclick="showStep('step-contacts')">Далее</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" id="step-size">
+                        <h3 class="step-title">Примерные размеры (см):</h3>
+                        <input type="text" id="quiz_size" class="quiz-field" placeholder="Например: 80 х 30 см">
+                        
+                        <h3 class="step-title">Пожелания (цвет, текст):</h3>
+                        <textarea id="quiz_visual_desc" class="quiz-field" rows="3" placeholder="Какой текст или логотип нужен?"></textarea>
+                        
+                        <div class="quiz-nav-row">
+                            <button type="button" class="quiz-back-btn" onclick="showStep('step-location')">← Назад</button>
+                            <button type="button" class="btn-submit" onclick="showStep('step-contacts')">Далее</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-step" id="step-contacts">
+                        <h3 class="step-title">Куда прислать расчет?</h3>
+                        <input type="text" id="quiz_phone" class="quiz-field" placeholder="Ваш номер телефона" required>
+                        
+                        <select id="quiz_messenger" class="quiz-field">
+                            <option value="Telegram">Telegram</option>
+                            <option value="Звонок">Просто позвонить</option>
+                        </select>
+                        
+                        <div class="quiz-nav-row">
+                            <button type="button" class="quiz-back-btn" id="final-back-btn">← Назад</button>
+                            <button type="submit" class="btn-submit">Отправить заявку</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8715525907:AAGwzWuIllOPaT-B-tfuyZza90BvS7xw_mg';
+        const CHAT_ID = '1949742643';
+
+        let answers = {
+            type: '',
+            location: '',
+            size: '',
+            desc: '',
+            phone: '',
+            messenger: ''
+        };
+
+        function next(field, value, nextStepId) {
+            answers[field] = value;
+            showStep(nextStepId);
+        }
+
+        function showStep(stepId) {
+            document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+            
+            if(stepId === 'step-contacts') {
+                document.getElementById('final-back-btn').onclick = () => {
+                    showStep(answers.type === 'Другое' ? 'step-other' : 'step-size');
+                };
+            }
+        }
+
+        document.getElementById('tg-quiz-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            answers.size = document.getElementById('quiz_size').value || 'Не указан';
+            answers.desc = (answers.type === 'Другое') ? 
+                document.getElementById('quiz_other_desc').value : 
+                document.getElementById('quiz_visual_desc').value;
+            answers.phone = document.getElementById('quiz_phone').value;
+            answers.messenger = document.getElementById('quiz_messenger').value;
+
+            let message = `🚀 Новая заявка (КВИЗ NEON54)\n\n`;
+            message += `🔹 Тип: ${answers.type}\n`;
+            if (answers.type !== 'Другое') {
+                message += `🔹 Место: ${answers.location}\n`;
+                message += `🔹 Размер: ${answers.size}\n`;
+            }
+            message += `🔹 Описание: ${answers.desc || 'Нет'}\n\n`;
+            message += `📞 Телефон: ${answers.phone}\n`;
+            message += `💬 Связь: ${answers.messenger}`;
+
+            let formData = new FormData();
+            formData.append('chat_id', CHAT_ID);
+            formData.append('text', message);
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('Заявка успешно отправлена! Скоро свяжемся с вами.');
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Ошибка Telegram API: ' + data.description);
+                }
+            })
+            .catch(err => {
+                console.error('Ошибка отправки:', err);
+                alert('Произошла ошибка при отправке заявки.');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости | НЕОН 54</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-container { max-width: 1100px; margin: 100px auto 50px; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
+        .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 20px; backdrop-filter: blur(10px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
+        .date { font-size: 0.8rem; color: #ff007f; margin-bottom: 8px; }
+        .title { font-size: 1.3rem; font-weight: bold; color: #fff; margin-bottom: 10px; }
+        .text { font-size: 0.95rem; color: #ccc; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="site-wrapper">
+        <header>
+            <div class="container header-inner">
+                <div class="logo" onclick="location.href='index.html'">НЕОН<span>54</span></div>
+                <nav class="nav">
+                    <a href="index.html">Главная</a>
+                    <a href="portfolio.html">Портфолио</a>
+                    <a href="news.html" class="active">Новости</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="page-container">
+            <h1 style="font-family: 'Unbounded'; color: #ff007f;">НОВОСТИ И АКЦИИ</h1>
+            <div id="news-grid" class="grid"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const db = JSON.parse(localStorage.getItem('neon54_db')) || { news: [] };
+            const container = document.getElementById('news-grid');
+            
+            if (!db.news || db.news.length === 0) {
+                container.innerHTML = '<p style="color: #aaa;">Новостей пока нет.</p>';
+                return;
+            }
+
+            container.innerHTML = db.news.map(item => `
+                <div class="card">
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ''}
+                    <div class="date">${item.date}</div>
+                    <div class="title">${item.title}</div>
+                    <div class="text">${item.text}</div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>

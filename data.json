@@ -1,0 +1,31 @@
+{
+  "portfolio": [
+    {
+      "id": 1,
+      "title": "Neon Coffee",
+      "image": "images/portfolio/portfolio1.jpg",
+      "category": "Для бизнеса"
+    },
+    {
+      "id": 2,
+      "title": "Home Chill",
+      "image": "images/portfolio/portfolio2.jpg",
+      "category": "Для дома"
+    },
+    {
+      "id": 3,
+      "title": "Party Time",
+      "image": "images/portfolio/portfolio3.jpg",
+      "category": "Для мероприятий"
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "title": "Открытие студии NEON54!",
+      "date": "25.05.2026",
+      "text": "Мы рады сообщить об открытии нашей профессиональной студии неоновых вывесок в Новосибирске. Заказывайте уникальный дизайн прямо сейчас со скидкой!",
+      "image": "images/news/news1.jpg"
+    }
+  ]
+}
