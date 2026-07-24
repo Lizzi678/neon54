@@ -76,6 +76,7 @@
                         <select id="quiz_messenger" class="quiz-field">
                             <option value="Telegram">Telegram</option>
                             <option value="WhatsApp">WhatsApp</option>
+                            <option value="Макс">Макс</option>
                             <option value="Почта">Почта</option>
                             <option value="Просто позвонить">Просто позвонить</option>
                         </select>
@@ -163,7 +164,6 @@
             .then(response => response.json())
             .then(data => {
                 if (data.ok) {
-                    // Показываем красивое всплывающее окно
                     document.getElementById('successModal').classList.add('active');
                 } else {
                     alert('Ошибка Telegram API: ' + data.description);
