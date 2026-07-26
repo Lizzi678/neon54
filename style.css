@@ -17,55 +17,44 @@
    2. ОСНОВНОЙ ФОН И ХОЛСТ
    ========================================== */
 body {
-    /* Основной фон body — черный. Псевдоэлемент ляжет сверху. */
     background: #000000;
     color: var(--text-color);
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-    position: relative; /* Обязательно для позиционирования псевдоэлемента */
+    position: relative;
 }
 
-/* ПСЕВДОЭЛЕМЕНТ С ФОНОВОЙ КАРТИНКОЙ, ЗА ТЕМНЕНИЕМ И РАЗМЫТИЕМ */
 body::before {
     content: "";
-    position: fixed; /* Фиксирован при скролле */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Лежит под всем контентом сайта */
-    
-    /* Установка картинки */
+    z-index: -1;
     background-image: url('bg.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-
-    /* ПРИМЕНЕНИЕ ФИЛЬТРОВ (Затемнение и размытие) */
-    /* Затемнение: делаем картинку на 50% темнее (яркость 0.5) */
-    /* Размытие: ставим легкое размытие (например, 5px) */
     filter: brightness(0.5) blur(5px);
-    
-    /* Убираем белые края при размытии */
     transform: scale(1.1); 
 }
 
-/* Интерактивный canvas для частиц */
 #canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 1; /* Поверх фонового псевдоэлемента body::before */
+    z-index: 1;
     pointer-events: none;
     background: transparent !important;
 }
 
 .site-wrapper {
     position: relative;
-    z-index: 2; /* Весь контент сайта поверх canvas */
+    z-index: 2;
     width: 100%;
 }
 
@@ -93,6 +82,7 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 80px;
+    position: relative;
 }
 
 .logo {
@@ -154,7 +144,6 @@ header {
     box-shadow: 0 0 25px rgba(0, 242, 255, 0.8);
 }
 
-/* Кнопка «Посмотреть портфолио» в карточке */
 .btn-cyan.btn-large {
     padding: 14px 34px;
     border-radius: 50px;
@@ -233,31 +222,21 @@ header {
     justify-content: center;
     align-items: center;
     padding: 60px 20px;
-    /* Убрано background: transparent !important;, так как body уже черный,
-       а псевдоэлемент поднят z-index: -1. Секция должна быть прозрачной. */
 }
 
-/* Карточка с эффектом матового стекла */
 .hero-card {
     max-width: 950px;
     width: 100%;
     padding: 60px 40px; 
     border-radius: 28px;
     text-align: left;
-    
-    /* Полупрозрачный темный фон карточки */
     background: rgba(12, 14, 18, 0.45); 
-    
-    /* Размытие контента под карточкой */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    
-    /* Тонкая рамка и тень */
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Тексты внутри карточки */
 .neon-heading {
     text-shadow: none; 
     margin-bottom: 8px;
@@ -268,18 +247,12 @@ header {
 
 .hero-title {
     font-family: 'Unbounded', sans-serif;
-    font-size: 2.8rem; /* Крупный размер */
+    font-size: 2.8rem;
     font-weight: 700;
     line-height: 1.2;
     color: #ffffff;
     margin-bottom: 20px;
     text-transform: uppercase;
-}
-
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 1.8rem;
-    }
 }
 
 .hero-subtitle {
@@ -457,40 +430,6 @@ textarea.quiz-field {
     color: var(--accent-pink); 
 }
 
-/* ==========================================
-   9. МОБИЛЬНАЯ АДАПТАЦИЯ (RESPONSIVE)
-   ========================================== */
-@media (max-width: 768px) {
-    .header-inner { 
-        padding: 0 15px; 
-    }
-    .nav { 
-        display: none; 
-    }
-    .header-phone-btn { 
-        display: none; 
-    }
-    .hero-section { 
-        min-height: calc(100vh - 80px); 
-        padding: 40px 10px; 
-    }
-    .hero-card { 
-        padding: 35px 20px; 
-        border-radius: 20px; 
-    }
-    .neon-heading { 
-        font-size: 0.8rem; 
-    }
-    .hero-title { 
-        font-size: 2.1rem; 
-    }
-    .quiz-container { 
-        padding: 30px 15px; 
-    }
-    .quiz-main-title { 
-        font-size: 1.3rem; 
-    }
-}
 .contacts-block {
     display: flex;
     flex-direction: column;
@@ -519,7 +458,10 @@ textarea.quiz-field {
     color: #fff;
     text-shadow: 0 0 12px #00f2ff;
 }
-/* Адаптив мобильного меню */
+
+/* ==========================================
+   МОБИЛЬНОЕ МЕНЮ (БУРГЕР)
+   ========================================== */
 .burger-btn {
     display: none;
     flex-direction: column;
@@ -541,10 +483,18 @@ textarea.quiz-field {
     transition: 0.3s;
 }
 
+/* ==========================================
+   9. МОБИЛЬНАЯ АДАПТАЦИЯ (RESPONSIVE)
+   ========================================== */
 @media (max-width: 768px) {
-    .burger-btn {
-        display: flex;
+    .header-inner { 
+        padding: 0 15px; 
     }
+
+    .burger-btn {
+        display: flex !important;
+    }
+
     .nav {
         display: none;
         flex-direction: column;
@@ -552,13 +502,60 @@ textarea.quiz-field {
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: #111;
+        background-color: rgba(11, 15, 25, 0.95);
+        backdrop-filter: blur(15px);
         padding: 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.8);
         text-align: center;
         gap: 15px;
+        z-index: 100;
     }
+
     .nav.active {
-        display: flex;
+        display: flex !important;
+    }
+
+    .header-phone-btn { 
+        display: none; 
+    }
+
+    .hero-section { 
+        min-height: calc(100vh - 80px); 
+        padding: 40px 10px; 
+    }
+
+    .hero-card { 
+        padding: 35px 20px; 
+        border-radius: 20px; 
+    }
+
+    .neon-heading { 
+        font-size: 0.8rem; 
+    }
+
+    .hero-title { 
+        font-size: 2.1rem; 
+    }
+
+    .quiz-container { 
+        padding: 30px 15px; 
+        max-width: 100%;
+    }
+
+    .quiz-main-title { 
+        font-size: 1.3rem; 
+    }
+
+    .quiz-nav-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .quiz-back-btn {
+        font-size: 0.9rem;
+        padding: 10px;
     }
 }
