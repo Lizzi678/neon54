@@ -159,9 +159,6 @@
             }
         });
 
-        const BOT_TOKEN = '8715525907:AAGwzWuIllOPaT-B-tfuyZza90BvS7xw_mg';
-        const CHAT_ID = '821538396';
-
         let answers = {
             type: '',
             location: '',
@@ -192,6 +189,7 @@
             window.location.href = 'index.html';
         }
 
+        // Обработка отправки формы на почту через send.php
         document.getElementById('tg-quiz-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -202,35 +200,31 @@
             answers.phone = document.getElementById('quiz_phone').value;
             answers.messenger = document.getElementById('quiz_messenger').value;
 
-            let message = `🚀 Новая заявка (КВИЗ NEON54)\n\n`;
-            message += `🔹 Тип: ${answers.type}\n`;
-            if (answers.type !== 'Другое') {
-                message += `🔹 Место: ${answers.location}\n`;
-                message += `🔹 Размер: ${answers.size}\n`;
-            }
-            message += `🔹 Описание: ${answers.desc || 'Нет'}\n\n`;
-            message += `📞 Телефон: ${answers.phone}\n`;
-            message += `💬 Связь: ${answers.messenger}`;
-
+            // Упаковываем собранные данные
             let formData = new FormData();
-            formData.append('chat_id', CHAT_ID);
-            formData.append('text', message);
+            formData.append('type', answers.type);
+            formData.append('location', answers.type !== 'Другое' ? answers.location : 'Не применимо');
+            formData.append('size', answers.size);
+            formData.append('desc', answers.desc || 'Нет');
+            formData.append('phone', answers.phone);
+            formData.append('messenger', answers.messenger);
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            // Отправляем данные в PHP-скрипт на хостинге
+            fetch('send.php', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                if (data.ok) {
+                if (data.status === 'success') {
                     document.getElementById('successModal').classList.add('active');
                 } else {
-                    alert('Ошибка Telegram API: ' + data.description);
+                    alert('Ошибка при отправке письма. Проверьте настройки почты на хостинге.');
                 }
             })
             .catch(err => {
                 console.error('Ошибка отправки:', err);
-                alert('Произошла ошибка при отправке заявки.');
+                alert('Произошла сетевая ошибка при отправке заявки.');
             });
         });
     </script>
