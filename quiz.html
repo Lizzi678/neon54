@@ -127,7 +127,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Логика мобильного меню (бургер)
             const burgerBtn = document.getElementById('burgerBtn');
             const navMenu = document.getElementById('navMenu');
             if (burgerBtn && navMenu) {
@@ -189,7 +188,7 @@
             window.location.href = 'index.html';
         }
 
-        // Обработка отправки формы на почту через send.php
+        // Отправка данных на почту Neon54.nsk@yandex.ru через send.php
         document.getElementById('tg-quiz-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -200,7 +199,6 @@
             answers.phone = document.getElementById('quiz_phone').value;
             answers.messenger = document.getElementById('quiz_messenger').value;
 
-            // Упаковываем собранные данные
             let formData = new FormData();
             formData.append('type', answers.type);
             formData.append('location', answers.type !== 'Другое' ? answers.location : 'Не применимо');
@@ -209,7 +207,6 @@
             formData.append('phone', answers.phone);
             formData.append('messenger', answers.messenger);
 
-            // Отправляем данные в PHP-скрипт на хостинге
             fetch('send.php', {
                 method: 'POST',
                 body: formData

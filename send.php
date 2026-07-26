@@ -3,7 +3,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $to = "Neon54.nsk@yandex.ru";
     $subject = "Новая заявка на расчет (Квиз НЕОН54)";
     
-    // Получаем данные из формы
     $type = htmlspecialchars($_POST['type']);
     $location = htmlspecialchars($_POST['location']);
     $size = htmlspecialchars($_POST['size']);
@@ -11,7 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = htmlspecialchars($_POST['phone']);
     $messenger = htmlspecialchars($_POST['messenger']);
     
-    // Формируем текст письма
     $message = "Новая заявка с квиза NEON54:\n\n";
     $message .= "Тип вывески: " . $type . "\n";
     $message .= "Место размещения: " . $location . "\n";
