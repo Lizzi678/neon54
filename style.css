@@ -559,3 +559,35 @@ textarea.quiz-field {
         padding: 10px;
     }
 }
+@media (max-width: 768px) {
+    /* Показываем кнопку бургер на мобилках */
+    .burger-btn {
+        display: flex !important;
+    }
+    
+    /* Скрываем громоздкую кнопку звонка в шапке на маленьких экранах, чтобы она не перекрывала логотип */
+    #headerCallBtn {
+        display: none !important;
+    }
+
+    /* Настройка выпадающего меню */
+    .nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(11, 15, 25, 0.95);
+        backdrop-filter: blur(15px);
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+        text-align: center;
+        gap: 15px;
+        z-index: 1000;
+    }
+
+    .nav.active {
+        display: flex !important;
+    }
+}

@@ -13,7 +13,14 @@
         <header>
             <div class="container header-inner">
                 <div class="logo" onclick="location.href='index.html'">НЕОН<span>54</span></div>
-                <nav class="nav">
+                
+                <button class="burger-btn" id="burgerBtn" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <nav class="nav" id="navMenu">
                     <a href="index.html">Главная</a>
                     <a href="portfolio.html">Портфолио</a>
                     <a href="news.html" class="active">Новости</a>
@@ -74,20 +81,38 @@
     </div>
 
     <script>
-        window.toggleOverlay = function(id) {
-            const el = document.getElementById(id);
-            if (el) el.style.display = (window.getComputedStyle(el).display === 'none') ? 'flex' : 'none';
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            // Логика мобильного меню (бургер)
+            const burgerBtn = document.getElementById('burgerBtn');
+            const navMenu = document.getElementById('navMenu');
+            if (burgerBtn && navMenu) {
+                burgerBtn.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    burgerBtn.classList.toggle('active');
+                });
+                navMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        burgerBtn.classList.remove('active');
+                    });
+                });
+            }
 
-        const callBtn = document.getElementById('headerCallBtn');
-        if (callBtn) {
-            callBtn.addEventListener('click', (e) => {
-                if (window.innerWidth > 768) {
-                    e.preventDefault();
-                    toggleOverlay('contactsBlock');
-                }
-            });
-        }
+            window.toggleOverlay = function(id) {
+                const el = document.getElementById(id);
+                if (el) el.style.display = (window.getComputedStyle(el).display === 'none') ? 'flex' : 'none';
+            };
+
+            const callBtn = document.getElementById('headerCallBtn');
+            if (callBtn) {
+                callBtn.addEventListener('click', (e) => {
+                    if (window.innerWidth > 768) {
+                        e.preventDefault();
+                        toggleOverlay('contactsBlock');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

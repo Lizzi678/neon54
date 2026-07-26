@@ -123,7 +123,7 @@
                 if (el) el.style.display = (window.getComputedStyle(el).display === 'none') ? 'flex' : 'none';
             };
 
-            // Кнопка вызова: на ПК открываем контакты, на мобильных сразу совершаем звонок
+            // Кнопка вызова: на ПК открываем контакты, на мобильных в шапке она скрывается через CSS
             const callBtn = document.getElementById('headerCallBtn');
             if (callBtn) {
                 callBtn.addEventListener('click', (e) => {
