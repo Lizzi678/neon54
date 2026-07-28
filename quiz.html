@@ -188,10 +188,13 @@
             window.location.href = 'index.html';
         }
 
-        // Отправка данных на почту Neon54.nsk@yandex.ru через send.php
+        // ================================================
+        // 🔥 НОВАЯ ОТПРАВКА ЧЕРЕЗ FORMSPREE (без PHP)
+        // ================================================
         document.getElementById('tg-quiz-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Собираем данные
             answers.size = document.getElementById('quiz_size').value || 'Не указан';
             answers.desc = (answers.type === 'Другое') ? 
                 document.getElementById('quiz_other_desc').value : 
@@ -199,31 +202,42 @@
             answers.phone = document.getElementById('quiz_phone').value;
             answers.messenger = document.getElementById('quiz_messenger').value;
 
-            let formData = new FormData();
-            formData.append('type', answers.type);
-            formData.append('location', answers.type !== 'Другое' ? answers.location : 'Не применимо');
-            formData.append('size', answers.size);
-            formData.append('desc', answers.desc || 'Нет');
-            formData.append('phone', answers.phone);
-            formData.append('messenger', answers.messenger);
+            // Формируем объект с данными для Formspree
+            const formData = {
+                type: answers.type,
+                location: answers.type !== 'Другое' ? answers.location : 'Не применимо',
+                size: answers.size,
+                description: answers.desc || 'Нет',
+                phone: answers.phone,
+                messenger: answers.messenger
+            };
 
-            fetch('send.php', {
+            // Отправка через Formspree
+            fetch('https://formspree.io/f/mykroebj', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    document.getElementById('successModal').classList.add('active');
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 } else {
-                    alert('Ошибка при отправке письма. Проверьте настройки почты на хостинге.');
+                    throw new Error('Ошибка отправки');
                 }
             })
-            .catch(err => {
-                console.error('Ошибка отправки:', err);
-                alert('Произошла сетевая ошибка при отправке заявки.');
+            .then(data => {
+                // Успех — показываем модалку
+                document.getElementById('successModal').classList.add('active');
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('❌ Не удалось отправить заявку. Попробуйте позвонить по телефону.');
             });
         });
     </script>
+    <script src="form.js"></script>
 </body>
 </html>
